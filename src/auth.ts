@@ -5,6 +5,7 @@ import Resend from "next-auth/providers/resend";
 import { env } from "./env";
 import GitHub from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
+import { routes } from "./lib/routes";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   adapter: DrizzleAdapter(db),
@@ -15,4 +16,8 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     GitHub,
     Google,
   ],
+  pages: {
+    signIn: routes.auth,
+    error: routes.auth,
+  },
 });
