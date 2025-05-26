@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "tsx --require dotenv/config ./src/db/migrate.ts",
-    "db:studio": "drizzle-kit studio",
+    "db:push": "tsx --require dotenv/config ./src/db/migrate.ts",
+    "db:dev": "drizzle-kit studio",
     "email:dev": "email dev"
   },
   "dependencies": {
