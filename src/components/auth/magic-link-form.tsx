@@ -1,6 +1,6 @@
 "use client";
 
-import { signInAction } from "@/actions/auth";
+import { signInWithMagicLinkAction } from "@/actions/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useActionState } from "react";
@@ -8,7 +8,10 @@ import { Label } from "@/components/ui/label";
 import { Loading } from "@/components/ui/loading";
 
 export function MagicLinkForm() {
-  const [state, formAction, isPending] = useActionState(signInAction, null);
+  const [state, formAction, isPending] = useActionState(
+    signInWithMagicLinkAction,
+    null,
+  );
 
   return (
     <form className="grid gap-2" action={formAction}>

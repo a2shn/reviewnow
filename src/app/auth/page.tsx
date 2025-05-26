@@ -1,9 +1,10 @@
-import { OAuth } from "@/components/auth/oauth";
 import { MagicLinkForm } from "@/components/auth/magic-link-form";
 import { TermsAndPrivacy } from "@/components/auth/terms-and-privacy";
 import { PageCentered } from "@/components/ui/page";
 import { Logo } from "@/components/ui/logo";
 import { ErrorAlert } from "@/components/ui/error-alert";
+import { GithubAuth } from "@/components/auth/github-auth";
+import { GoogleAuth } from "@/components/auth/google-auth";
 
 export default function AuthPage() {
   return (
@@ -20,7 +21,10 @@ export default function AuthPage() {
             </span>
           </div>
 
-          <OAuth />
+          <div className="grid gap-4 sm:grid-cols-2">
+            <GithubAuth />
+            <GoogleAuth />
+          </div>
           <TermsAndPrivacy />
         </div>
       </div>
