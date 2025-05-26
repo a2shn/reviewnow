@@ -2,7 +2,7 @@ import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { db } from "@/db";
 import { env } from "./env";
-import { magicLink } from "better-auth/plugins";
+import { magicLink, oneTap } from "better-auth/plugins";
 import { Resend } from "resend";
 import MagicLinkEmail from "./emails/magic-link";
 
@@ -36,5 +36,6 @@ export const auth = betterAuth({
           throw new Error("[auth][resend]: " + error.name + error.message);
       },
     }),
+    oneTap(),
   ],
 });
