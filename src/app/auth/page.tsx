@@ -1,6 +1,5 @@
 import { MagicLinkForm } from "@/components/auth/magic-link-form";
 import { TermsAndPrivacy } from "@/components/auth/terms-and-privacy";
-import { PageCentered } from "@/components/shared/page";
 import { Logo } from "@/components/shared/logo";
 import { ErrorAlert } from "@/components/ui/error-alert";
 import { GithubAuth } from "@/components/auth/github-auth";
@@ -17,7 +16,7 @@ import {
 
 export default function AuthPage() {
   return (
-    <PageCentered>
+    <div className="@container-normal min-h-svh flex items-center justify-center">
       <FlickeringGrid
         className="absolute z-0 inset-0 size-full"
         squareSize={5}
@@ -31,7 +30,7 @@ export default function AuthPage() {
 
         <CardHeader>
           <Logo />
-          <CardTitle>Create an account.</CardTitle>
+          <CardTitle>Login to your account.</CardTitle>
         </CardHeader>
         <CardContent>
           <ErrorAlert />
@@ -53,6 +52,6 @@ export default function AuthPage() {
           <TermsAndPrivacy />
         </CardFooter>
       </Card>
-    </PageCentered>
+    </div>
   );
 }

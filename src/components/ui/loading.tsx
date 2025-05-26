@@ -1,5 +1,5 @@
-import { AiOutlineLoading } from "react-icons/ai";
+import { Loader } from "lucide-react";
 
 export function Loading() {
-  return <AiOutlineLoading className="size-5 animate-spin" />;
+  return <Loader className="size-5 animate-spin" />;
 }
