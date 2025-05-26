@@ -1,23 +1,14 @@
-import { Separator } from "@/components/ui/separator";
-import { SidebarTrigger } from "@/components/ui/sidebar";
-import { MenuMobile } from "./menu-mobile";
+import { ToggleTheme } from "../shared/toggle-theme";
 import { SearchBar } from "../ui/search-bar";
 
 export function DashboardHeader() {
   return (
-    <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
-      <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
-        <SidebarTrigger className="-ml-1 hidden md:block" />
-        <MenuMobile />
-        <Separator
-          orientation="vertical"
-          className="mx-2 data-[orientation=vertical]:h-4"
-        />
-        <h1 className="text-base font-medium">User</h1>
-        <div className="ml-auto flex items-center gap-2">
-          <SearchBar />
-        </div>
+    <div className="border-b-2 border-dashed px-4 py-2 flex items-center justify-between">
+      <h1 className="text-base font-medium">User</h1>
+      <div className="flex items-center gap-4">
+        <SearchBar />
+        <ToggleTheme />
       </div>
-    </header>
+    </div>
   );
 }
