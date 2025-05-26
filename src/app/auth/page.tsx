@@ -1,11 +1,25 @@
-import { AuthForm } from "@/components/auth/auth-form";
+import { OAuth } from "@/components/auth/oauth";
+import { MagicLinkForm } from "@/components/auth/magic-link-form";
+import { TermsAndPrivacy } from "@/components/auth/terms-and-privacy";
+import { PageCentered } from "@/components/ui/page";
+import { Logo } from "@/components/ui/logo";
 
 export default function AuthPage() {
   return (
-    <div className="bg-background flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
-      <div className="w-full max-w-sm">
-        <AuthForm />
+    <PageCentered>
+      <div className={"flex flex-col gap-6"}>
+        <Logo />
+        <MagicLinkForm />
+
+        <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+          <span className="bg-background text-muted-foreground relative z-10 px-2">
+            Or
+          </span>
+        </div>
+
+        <OAuth />
+        <TermsAndPrivacy />
       </div>
-    </div>
+    </PageCentered>
   );
 }
