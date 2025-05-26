@@ -23,11 +23,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     error: routes.auth,
     verifyRequest: routes.auth,
   },
-  callbacks: {
+  // WARN: Uncomment for default behaviour
+  /*callbacks: {
     authorized: async ({ auth }) => {
       return !!auth;
     },
-  },
+  },*/
   session: {
     strategy: "jwt",
   },
