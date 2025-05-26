@@ -1,35 +1,29 @@
-import NextAuth from "next-auth";
-import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import { db } from "@/db/index";
-import Resend from "next-auth/providers/resend";
-import GitHub from "next-auth/providers/github";
-import Google from "next-auth/providers/google";
-import { routes } from "./lib/routes";
-import { sendVerificationRequest } from "./lib/sendVerificationRequest";
+import { betterAuth } from "better-auth";
+import { drizzleAdapter } from "better-auth/adapters/drizzle";
+import { db } from "@/db";
 import { env } from "./env";
+import { magicLink } from "better-auth/plugins";
+import { Resend } from "resend";
 
-export const { handlers, auth, signIn, signOut } = NextAuth({
-  adapter: DrizzleAdapter(db),
-  providers: [
-    Resend({
-      from: env.AUTH_FROM_MAIL,
-      sendVerificationRequest,
-    }),
-    GitHub,
-    Google,
-  ],
-  pages: {
-    signIn: routes.auth,
-    error: routes.auth,
-    verifyRequest: routes.auth,
-  },
-  // WARN: Uncomment for default behaviour
-  /*callbacks: {
-    authorized: async ({ auth }) => {
-      return !!auth;
+const resend = new Resend(env.AUTH_RESEND_KEY);
+
+export const auth = betterAuth({
+  database: drizzleAdapter(db, {
+    provider: "pg",
+  }),
+  socialProviders: {
+    github: {
+      clientId: env.AUTH_GITHUB_ID,
+      clientSecret: env.AUTH_GITHUB_SECRET,
     },
-  },*/
-  session: {
-    strategy: "jwt",
+    google: {
+      clientId: env.AUTH_GOOGLE_ID,
+      clientSecret: env.AUTH_GOOGLE_SECRET,
+    },
   },
+  plugins: [
+    magicLink({
+      sendMagicLink: async ({ email, token, url }, request) => { },
+    }),
+  ],
 });
