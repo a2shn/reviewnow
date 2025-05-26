@@ -1,4 +1,6 @@
 export const routes = {
+  home: "/",
+  dashboard: "/app",
   auth: "/auth",
   terms: "/terms",
   privacy: "/privacy",

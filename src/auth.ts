@@ -5,12 +5,15 @@ import { env } from "./env";
 import { magicLink, oneTap } from "better-auth/plugins";
 import { Resend } from "resend";
 import MagicLinkEmail from "./emails/magic-link";
+import * as schema from "@/db/schema";
 
 const resend = new Resend(env.AUTH_RESEND_KEY);
 
 export const auth = betterAuth({
+  appName: "Reviewnow.",
   database: drizzleAdapter(db, {
     provider: "pg",
+    schema,
   }),
   socialProviders: {
     github: {

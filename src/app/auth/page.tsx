@@ -1,7 +1,6 @@
 import { MagicLinkForm } from "@/components/auth/magic-link-form";
 import { TermsAndPrivacy } from "@/components/auth/terms-and-privacy";
 import { Logo } from "@/components/shared/logo";
-import { ErrorAlert } from "@/components/ui/error-alert";
 import { GithubAuth } from "@/components/auth/github-auth";
 import { GoogleAuth } from "@/components/auth/google-auth";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
@@ -18,14 +17,14 @@ export default function AuthPage() {
   return (
     <div className="@container-normal min-h-svh flex items-center justify-center">
       <FlickeringGrid
-        className="absolute z-0 inset-0 size-full"
+        className="absolute z-0 inset-0 right-0 top-0"
         squareSize={5}
         gridGap={6}
         color="#6B7280"
         maxOpacity={0.2}
         flickerChance={0.5}
       />
-      <Card className="relative w-full max-w-md z-10">
+      <Card className="relative w-full max-w-md z-10 m-2">
         <ShineBorder shineColor={["#fff", "#000"]} />
 
         <CardHeader>
@@ -33,7 +32,6 @@ export default function AuthPage() {
           <CardTitle>Login to your account.</CardTitle>
         </CardHeader>
         <CardContent>
-          <ErrorAlert />
           <MagicLinkForm />
 
           <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">

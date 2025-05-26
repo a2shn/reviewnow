@@ -5,14 +5,16 @@ import { FaGithub } from "react-icons/fa";
 import { useActionState } from "react";
 import { signInWithGithubAction } from "@/actions/auth";
 import { Loading } from "../shared/loading";
+import { ErrorAlert } from "../shared/error-alert";
 
 export function GithubAuth() {
-  const [_, formAction, isPending] = useActionState(
+  const [state, formAction, isPending] = useActionState(
     signInWithGithubAction,
     null,
   );
   return (
-    <form action={formAction}>
+    <form action={formAction} className="flex flex-col gap-2">
+      {state?.success === false && <ErrorAlert message={state.message} />}
       <Button
         disabled={isPending}
         variant="outline"
