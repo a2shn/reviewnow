@@ -21,5 +21,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
     signIn: routes.auth,
     error: routes.auth,
+    verifyRequest: routes.auth,
   },
 });

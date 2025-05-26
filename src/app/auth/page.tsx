@@ -7,6 +7,13 @@ import { GithubAuth } from "@/components/auth/github-auth";
 import { GoogleAuth } from "@/components/auth/google-auth";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
 import { ShineBorder } from "@/components/magicui/shine-border";
+import {
+  Card,
+  CardContent,
+  CardTitle,
+  CardHeader,
+  CardFooter,
+} from "@/components/ui/card";
 
 export default function AuthPage() {
   return (
@@ -19,16 +26,19 @@ export default function AuthPage() {
         maxOpacity={0.2}
         flickerChance={0.5}
       />
-      <div className="relative w-full max-w-md z-10 p-4 rounded bg-background border shadow-lg">
-        <ShineBorder shineColor={["#fff"]} />
-        <div className={"flex flex-col gap-6"}>
+      <Card className="relative w-full max-w-md z-10">
+        <ShineBorder shineColor={["#fff", "#000"]} />
+
+        <CardHeader>
           <Logo />
-          <p className="text-2xl font-extrabold">Create an account.</p>
+          <CardTitle>Create an account.</CardTitle>
+        </CardHeader>
+        <CardContent>
           <ErrorAlert />
           <MagicLinkForm />
 
           <div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
-            <span className="bg-background text-muted-foreground relative z-10 px-2">
+            <span className="bg-card text-muted-foreground relative z-10 px-2">
               Or
             </span>
           </div>
@@ -37,9 +47,12 @@ export default function AuthPage() {
             <GithubAuth />
             <GoogleAuth />
           </div>
+        </CardContent>
+
+        <CardFooter>
           <TermsAndPrivacy />
-        </div>
-      </div>
+        </CardFooter>
+      </Card>
     </PageCentered>
   );
 }
