@@ -6,7 +6,10 @@ import { authSchema } from "@/lib/schema";
 async function signInWithMagicLinkAction(_: any, formData: FormData) {
   const schema = authSchema.safeParse(formData.get("email"));
   if (!schema.success) return { message: "Please type a valid email" };
-  return await signIn("resend", { redirectTo: "/", formData });
+  return await signIn("resend", {
+    redirectTo: "/",
+    email: formData.get("email"),
+  });
 }
 
 async function signInWithGithubAction() {
