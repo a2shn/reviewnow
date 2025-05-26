@@ -6,6 +6,7 @@ import { ErrorAlert } from "@/components/ui/error-alert";
 import { GithubAuth } from "@/components/auth/github-auth";
 import { GoogleAuth } from "@/components/auth/google-auth";
 import { FlickeringGrid } from "@/components/magicui/flickering-grid";
+import { ShineBorder } from "@/components/magicui/shine-border";
 
 export default function AuthPage() {
   return (
@@ -18,9 +19,11 @@ export default function AuthPage() {
         maxOpacity={0.2}
         flickerChance={0.5}
       />
-      <div className="w-full max-w-sm z-10 p-4 rounded bg-background border shadow-lg">
+      <div className="relative w-full max-w-md z-10 p-4 rounded bg-background border shadow-lg">
+        <ShineBorder shineColor={["#fff"]} />
         <div className={"flex flex-col gap-6"}>
           <Logo />
+          <p className="text-2xl font-extrabold">Create an account.</p>
           <ErrorAlert />
           <MagicLinkForm />
 
