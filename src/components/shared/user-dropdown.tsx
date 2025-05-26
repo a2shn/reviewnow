@@ -1,5 +1,3 @@
-"use client";
-
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -10,16 +8,22 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Badge } from "@/components/ui/badge";
-import { ChevronDown, CreditCard, LogOut, Settings, User } from "lucide-react";
+import { ChevronDown, CreditCard, LogOut, Settings } from "lucide-react";
 import { Button } from "../ui/button";
+import { auth } from "@/auth";
+import { headers } from "next/headers";
+import Link from "next/link";
+import { routes } from "@/lib/routes";
 
-export function UserDropdown() {
+export async function UserDropdown() {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
   const user = {
-    name: "John Doe",
-    email: "john.doe@example.com",
-    avatarUrl: "/placeholder.svg?height=40&width=40",
-    plan: "Pro" as const,
+    name: session?.user.name,
+    email: session?.user.email,
+    avatarUrl: session?.user.image,
   };
 
   return (
@@ -31,7 +35,11 @@ export function UserDropdown() {
               src={user.avatarUrl || "/placeholder.svg"}
               alt={user.name}
             />
-            <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+            <AvatarFallback>
+              {user.name !== undefined
+                ? user.name.charAt(0)
+                : user.email?.charAt(0)}
+            </AvatarFallback>
           </Avatar>
           <span className="hidden md:inline">{user.email}</span>
           <ChevronDown />
@@ -44,30 +52,23 @@ export function UserDropdown() {
             <p className="text-xs leading-none text-muted-foreground">
               {user.email}
             </p>
-            <div className="mt-1">
-              <Badge
-                variant={user.plan === "Pro" ? "default" : "outline"}
-                className="mt-1"
-              >
-                {user.plan} Plan
-              </Badge>
-            </div>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <User className="mr-2 h-4 w-4" />
-            <span>Profile</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Settings className="mr-2 h-4 w-4" />
-            <span>Settings</span>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <CreditCard className="mr-2 h-4 w-4" />
-            <span>Billing</span>
-          </DropdownMenuItem>
+          <Link href={routes.settings}>
+            <DropdownMenuItem>
+              <Settings className="mr-2 h-4 w-4" />
+              <span>Settings</span>
+            </DropdownMenuItem>
+          </Link>
+
+          <Link href={routes.billing}>
+            <DropdownMenuItem>
+              <CreditCard className="mr-2 h-4 w-4" />
+              <span>Billing</span>
+            </DropdownMenuItem>
+          </Link>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
