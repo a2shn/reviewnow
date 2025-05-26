@@ -4,6 +4,7 @@ import { db } from "@/db";
 import { env } from "./env";
 import { magicLink } from "better-auth/plugins";
 import { Resend } from "resend";
+import MagicLinkEmail from "./emails/magic-link";
 
 const resend = new Resend(env.AUTH_RESEND_KEY);
 
@@ -23,7 +24,17 @@ export const auth = betterAuth({
   },
   plugins: [
     magicLink({
-      sendMagicLink: async ({ email, token, url }, request) => { },
+      sendMagicLink: async ({ email, url }) => {
+        const { error } = await resend.emails.send({
+          from: env.AUTH_FROM_MAIL,
+          to: email,
+          subject: "Login link to Reviewnow",
+          react: MagicLinkEmail({ magicLink: url }),
+        });
+
+        if (error)
+          throw new Error("[auth][resend]: " + error.name + error.message);
+      },
     }),
   ],
 });
