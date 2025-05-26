@@ -23,4 +23,9 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     error: routes.auth,
     verifyRequest: routes.auth,
   },
+  callbacks: {
+    authorized: async ({ auth }) => {
+      return !!auth;
+    },
+  },
 });
