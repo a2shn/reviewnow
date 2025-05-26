@@ -1,8 +1,7 @@
-import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { SidebarTrigger } from "@/components/ui/sidebar";
-import { Search } from "lucide-react";
 import { MenuMobile } from "./menu-mobile";
+import { SearchBar } from "../ui/search-bar";
 
 export function DashboardHeader() {
   return (
@@ -16,10 +15,7 @@ export function DashboardHeader() {
         />
         <h1 className="text-base font-medium">User</h1>
         <div className="ml-auto flex items-center gap-2">
-          <Button variant="ghost" size="sm">
-            <Search className="size-4" />
-            <span className="sr-only">Search Projects</span>
-          </Button>
+          <SearchBar />
         </div>
       </div>
     </header>

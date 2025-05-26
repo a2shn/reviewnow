@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { FaGithub } from "react-icons/fa";
 import { useActionState } from "react";
 import { signInWithGithubAction } from "@/actions/auth";
-import { Loading } from "../ui/loading";
+import { Loading } from "../shared/loading";
 
 export function GithubAuth() {
   const [_, formAction, isPending] = useActionState(
