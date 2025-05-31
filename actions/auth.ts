@@ -7,7 +7,8 @@ import { redirect } from "next/navigation";
 
 async function signInWithMagicLinkAction(_: any, formData: FormData) {
   const schema = authSchema.safeParse(formData.get("email"));
-  if (!schema.success) return { message: "Please type a valid email" };
+  if (!schema.success) return { message: schema.error.message };
+
   const { data, error } = await authClient.signIn.magicLink({
     email: formData.get("email") as string,
     callbackURL: routes.dashboard,

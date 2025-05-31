@@ -6,6 +6,7 @@ export const routes = {
   privacy: "/privacy",
   settings: "/settings",
   billing: "/billing",
+  project: (id: string) => `/project/${id}`,
   resources: {
     github: "https://github.com/forkbombx/reviewnow",
     docs: "/docs",

@@ -4,7 +4,6 @@ import {
   Dialog,
   DialogContent,
   DialogDescription,
-  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -13,8 +12,15 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RainbowButton } from "../magicui/rainbow-button";
 import { Separator } from "../ui/separator";
+import { useActionState } from "react";
+import { createProjectAction } from "@/actions/project";
 
 export function CreateProjectDialog() {
+  const [state, formAction, isPending] = useActionState(
+    createProjectAction,
+    null,
+  );
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -35,7 +41,7 @@ export function CreateProjectDialog() {
           </DialogDescription>
         </DialogHeader>
 
-        <form>
+        <form action={formAction}>
           <div className="space-y-6 py-4">
             <div className="space-y-2">
               <Label htmlFor="project-name" className="text-sm font-medium">
@@ -65,7 +71,11 @@ export function CreateProjectDialog() {
             </div>
           </div>
 
-          <Button className="flex-1 sm:flex-none">
+          <Button
+            disabled={isPending}
+            className="flex-1 sm:flex-none w-full"
+            type="submit"
+          >
             <Sparkles className="mr-2 h-4 w-4" />
             Create Project
           </Button>
