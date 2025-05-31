@@ -2,23 +2,22 @@
 
 import { authClient } from "@/lib/auth-client";
 import { routes } from "@/lib/routes";
-import { authSchema } from "@/lib/schema";
 import { redirect } from "next/navigation";
 
 async function signInWithMagicLinkAction(_: any, formData: FormData) {
-  const schema = authSchema.safeParse(formData.get("email"));
-  if (!schema.success) return { message: schema.error.message };
+  const email = formData.get("email") as string;
 
   const { data, error } = await authClient.signIn.magicLink({
-    email: formData.get("email") as string,
+    email,
     callbackURL: routes.dashboard,
   });
 
   if (error || data.status === false)
     return { success: false, message: "Cannot send Email. Retry later!" };
+
   return {
     success: true,
-    message: `We sent you a link to ${formData.get("email")}`,
+    message: `We sent you a login link to ${email}`,
   };
 }
 

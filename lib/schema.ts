@@ -1,11 +1,14 @@
 import { z } from "zod";
 
-const authSchema = z
-  .string({
-    required_error: "Email is required",
-    invalid_type_error: "Email must be a string",
-  })
-  .email({ message: "Please enter a valid email address" });
+const emptySchema = z.object({});
+
+const authSchema = z.object({
+  email: z
+    .string({
+      required_error: "Email is required",
+    })
+    .email({ message: "Please enter a valid email address" }),
+});
 
 const createProjectSchema = z.object({
   title: z
@@ -19,4 +22,4 @@ const createProjectSchema = z.object({
     .optional(),
 });
 
-export { authSchema, createProjectSchema };
+export { authSchema, createProjectSchema, emptySchema };

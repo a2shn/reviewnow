@@ -1,15 +1,17 @@
 "use client";
 
-import { useActionState, createContext, useContext } from "react";
+import { useActionState, createContext, useContext, useEffect } from "react";
 import { ZodType } from "zod";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 import React from "react";
-import { Button } from "../ui/button";
+import { Button, buttonVariants } from "../ui/button";
 import { useFormStatus } from "react-dom";
 import { Loading } from "./loading";
 import { ErrorAlert } from "./error-alert";
+import { toast } from "sonner";
+import { VariantProps } from "class-variance-authority";
 
 type FormResult = {
   values: Record<string, any>;
@@ -56,6 +58,11 @@ export function Form({ schema, action, className, children }: FormProps) {
     initialState,
   );
 
+  useEffect(() => {
+    if (state?.success === true)
+      toast.success(state.message, { duration: Infinity, dismissible: false });
+  }, [state]);
+
   return (
     <form action={formAction} className={className}>
       <FormContext.Provider value={state}>{children}</FormContext.Provider>
@@ -92,13 +99,19 @@ interface FormButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   children: React.ReactNode;
+  variant: "outline" | "default";
 }
 
-export function FormButton({ children, className }: FormButtonProps) {
+export function FormButton({ children, className, variant }: FormButtonProps) {
   const { pending } = useFormStatus();
 
   return (
-    <Button className={className} type="submit" disabled={pending}>
+    <Button
+      className={className}
+      type="submit"
+      disabled={pending}
+      variant={variant}
+    >
       {pending ? (
         <div className="flex gap-2 items-center justify-center">
           <Loading />
@@ -112,9 +125,9 @@ export function FormButton({ children, className }: FormButtonProps) {
 }
 
 export function FormMessage() {
-  const { message } = useFormContext();
+  const { success, message } = useFormContext();
 
-  if (!message) return null;
+  if (success || !message) return null;
 
   return <ErrorAlert message={message} />;
 }

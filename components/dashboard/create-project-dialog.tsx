@@ -39,7 +39,7 @@ export function CreateProjectDialog() {
         </DialogHeader>
 
         <Form
-          className="space-y-12 py-4"
+          className="grid gap-12 py-4"
           schema={createProjectSchema}
           action={createProjectAction}
         >
