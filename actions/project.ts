@@ -9,7 +9,7 @@ import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 async function createProjectAction(_: any, formData: FormData) {
-  const title = formData.get("email") as string;
+  const title = formData.get("title") as string;
   const description = formData.get("description") as string;
   const session = await auth.api.getSession({
     headers: await headers(),

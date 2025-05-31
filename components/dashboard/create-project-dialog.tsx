@@ -1,5 +1,6 @@
+"use client";
+
 import { Sparkles, Sprout } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -12,15 +13,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { RainbowButton } from "../magicui/rainbow-button";
 import { Separator } from "../ui/separator";
-import { useActionState } from "react";
 import { createProjectAction } from "@/actions/project";
+import { Field, Form, FormButton, FormMessage } from "../shared/form";
+import { createProjectSchema } from "@/lib/schema";
 
 export function CreateProjectDialog() {
-  const [state, formAction, isPending] = useActionState(
-    createProjectAction,
-    null,
-  );
-
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -41,45 +38,32 @@ export function CreateProjectDialog() {
           </DialogDescription>
         </DialogHeader>
 
-        <form action={formAction}>
-          <div className="space-y-6 py-4">
-            <div className="space-y-2">
-              <Label htmlFor="project-name" className="text-sm font-medium">
-                Project Name
-              </Label>
-              <Input
-                id="project-name"
-                placeholder="My Awesome Project"
-                className="h-11"
-              />
-              <p className="text-xs text-muted-foreground">
-                Choose a memorable name that reflects your project's purpose
-              </p>
-            </div>
+        <Form
+          className="space-y-12 py-4"
+          schema={createProjectSchema}
+          action={createProjectAction}
+        >
+          <FormMessage />
 
-            <div className="space-y-2">
-              <Label htmlFor="description" className="text-sm font-medium">
-                Description
-              </Label>
-              <Input
-                id="description"
-                placeholder="Describe what your project does, its goals, and what makes it special..."
-              />
-              <p className="text-xs text-muted-foreground">
-                Give a brief description
-              </p>
-            </div>
-          </div>
+          <Field
+            name="title"
+            label="Project Title"
+            placeholder="My Awesome Project"
+            className="h-11"
+          />
 
-          <Button
-            disabled={isPending}
-            className="flex-1 sm:flex-none w-full"
-            type="submit"
-          >
+          <Field
+            name="description"
+            id="description"
+            label="Project Description"
+            placeholder="Describe what your project does"
+          />
+
+          <FormButton className="flex-1 sm:flex-none w-full">
             <Sparkles className="mr-2 h-4 w-4" />
             Create Project
-          </Button>
-        </form>
+          </FormButton>
+        </Form>
       </DialogContent>
     </Dialog>
   );
