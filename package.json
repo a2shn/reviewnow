@@ -13,7 +13,6 @@
     "email:dev": "email dev"
   },
   "dependencies": {
-    "@auth/drizzle-adapter": "^1.9.0",
     "@neondatabase/serverless": "^1.0.0",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-dialog": "^1.1.14",
@@ -37,6 +36,7 @@
     "resend": "^4.5.1",
     "sonner": "^2.0.3",
     "tailwind-merge": "^3.2.0",
+    "winston": "^3.17.0",
     "ws": "^8.18.1",
     "zod": "^3.25.20"
   },
@@ -48,7 +48,6 @@
     "@types/ws": "^8.18.1",
     "dotenv": "^16.5.0",
     "drizzle-kit": "^0.31.1",
-    "lightningcss.android-arm64.node": "1.29.3-1",
     "react-email": "4.0.15",
     "tailwindcss": "^4",
     "tsx": "^4.19.4",

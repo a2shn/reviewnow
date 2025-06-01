@@ -2,7 +2,7 @@
 
 import { FcGoogle } from "react-icons/fc";
 import { signInWithGoogleAction } from "@/actions/auth";
-import { Form, FormButton } from "../shared/form";
+import { Form, FormButton, FormMessage } from "../shared/form";
 import { emptySchema } from "@/lib/schema";
 
 export function GoogleAuth() {
@@ -12,6 +12,7 @@ export function GoogleAuth() {
       action={signInWithGoogleAction}
       className="grid gap-2"
     >
+      <FormMessage />
       <FormButton variant="outline" type="submit" className="w-full">
         <FcGoogle />
         Continue with Google

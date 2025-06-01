@@ -3,6 +3,7 @@
 import { db } from "@/db";
 import { project } from "@/db/schema";
 import { auth } from "@/lib/auth";
+import logger from "@/lib/logger";
 import { routes } from "@/lib/routes";
 import { withQuery } from "@/lib/utils";
 import { headers } from "next/headers";
@@ -15,8 +16,13 @@ async function createProjectAction(_: any, formData: FormData) {
     headers: await headers(),
   });
 
-  if (!session?.user.id)
+  if (!session?.user.id) {
+    logger.warn(
+      "[project][createProjectAction][session] Session was not found. Session:",
+      session,
+    );
     return { success: false, message: "Session was not found" };
+  }
 
   const projectConstruct: typeof project.$inferInsert = {
     title,
@@ -28,7 +34,13 @@ async function createProjectAction(_: any, formData: FormData) {
     db.insert(project).values(projectConstruct).returning(),
   );
 
-  if (error) return { success: false, message: "Oops! Retry again later" };
+  if (error) {
+    logger.error(
+      "[project][createProjectAction][db] Could not insert a project. Due to:",
+      error,
+    );
+    return { success: false, message: "Oops! Retry again later" };
+  }
 
   redirect(routes.project(data[0].id));
 }
