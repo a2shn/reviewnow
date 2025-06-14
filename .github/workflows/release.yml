@@ -1,0 +1,37 @@
+# .github/workflows/release.yml
+name: Verify Release PR
+
+on:
+  pull_request:
+    branches:
+      - releases
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          cache: 'pnpm'
+
+      - name: Install PNPM
+        run: npm install -g pnpm
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Run Lint
+        run: pnpm lint
+
+      - name: Run Tests
+        run: pnpm test
+
+      - name: Build
+        run: pnpm build
+
+      - name: Start App
+        run: pnpm start
